@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/spinner.css" />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <script src="./assets/bundle.js" defer></script>
+
+    <title> Movie Details</title>
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="container">
+        <div class="back">
+          <a class="btn" href="../dist/index.html">Back To Home</a>
+        </div>
+
+        <nav>
+          <ul>
+            <li>
+              <a class="nav-link" href="#crew">Cast</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#review">Reviews</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#similar">Similar Movies</a>
+            </li>
+
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Movie Details -->
+    <section id="movie-details">
+        <div class="details-hero" id="details-hero">
+          <div class="close"><i class="ri-close-line"></i></div>
+
+          <div class="details-top" id="details-top">
+
+            <div class="details-top_content">
+              <div id="detail__poster"></div>
+
+              <div class="content">
+                <div id="content"></div>
+
+
+                <div class="links" id="links">
+                  <button class="playButton">Play Trailer<i class="ri-play-line"></i></button>
+                  <!-- <div class="close"><i class="ri-close-line"></i></div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section class="section" id="crew">
+      <div class="container">
+        <h2 class="section__title">Cast</h2>
+        <div id="cast" class="grid">
+
+
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonial section" id="review">
+      <div class="container">
+      
+        <h2 class="section__title">Review</h2>
+        <div class="review__container grid" id="reviews">
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section" id="similar">
+      <div class="container">
+        <h2 class="section__title">Similar Movies</h2>
+        <div id="similar-movies" class="grid">
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+      <div id="pagination">
+        
+      </div>
+    </section>
+
+
+
+    <div class="spinner"></div>
+
+
+  </body>
+</html>
