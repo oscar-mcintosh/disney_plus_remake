@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const pageNames = ['index', 'disney', 'marvel', 'pixar', 'starwars', 'natgeo', 'movie-details'];
+const pageNames = ['index', 'disney.html', 'marvel.html', 'pixar.html', 'starwars.html', 'natgeo.html', 'movie-details'];
 
 const plugins = [
   new MiniCssExtractPlugin(),
