@@ -39,27 +39,32 @@ module.exports = {
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './src/index.html'
+      template: './src/index.html',
     }),
     new HtmlWebpackPlugin({
       filename: 'disney.html',
-      template: './src/disney.html'
+      template: './src/disney.html',
+      chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
       filename: 'marvel.html',
-      template: './src/marvel.html'
+      template: './src/marvel.html',
+      chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
       filename: 'pixar.html',
-      template: './src/pixar.html'
+      template: './src/pixar.html',
+      chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
       filename: 'starwars.html',
-      template: './src/starwars.html'
+      template: './src/starwars.html',
+      chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
       filename: 'natgeo.html',
-      template: './src/natgeo.html'
+      template: './src/natgeo.html',
+      chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
       filename: 'movie-details.html',
