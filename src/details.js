@@ -15,7 +15,7 @@ const displayMovieDetails = async () => {
     const releaseDate = new Date(movie.release_date);
     const formattedDate = `${(releaseDate.getMonth() + 1).toString().padStart(2, '0')}-${releaseDate.getDate().toString().padStart(2, '0')}-${releaseDate.getFullYear()}`;
 
-    displayBackgroundImage2('#details-hero', 'movie', movie.backdrop_path, 'left calc((50vw - 200px) - 400px) top' );
+    displayBackgroundImage2('#details-hero',  movie.backdrop_path, 'left calc((50vw - 200px) - 400px) top' );
     similarAPIData(movieId);
     const trailor = await trailorAPIData(movieId);
 

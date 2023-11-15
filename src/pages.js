@@ -53,6 +53,7 @@ class PageUi {
             </nav>  
             `;
             const header = document.querySelector(this.selector3);
+
             header.appendChild(nav);
             const div = document.createElement('div');
             div.classList.add('head__cover');

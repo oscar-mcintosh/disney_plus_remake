@@ -1,5 +1,5 @@
-import './css/styles.css';
 import './css/spinner.css';
+import './css/styles.css'
 import disneyImg from './assets/disney.png';
 import { displayBackgroundImage2 } from './background.js';
 import { global, fetchCompanyAPIData, showSpinner, hideSpinner, similarAPIData } from './config.js'
@@ -28,7 +28,7 @@ class MovieUI {
       const { slice, position, bgPosition, selector4 } = this.config;
       const { results } = await fetchCompanyAPIData(this.config.company);
       const show = results.slice(slice)[position];
-      displayBackgroundImage2(selector4, 'movie', backdrop_path, bgPosition);
+      displayBackgroundImage2(selector4,  movie.backdrop_path, 'center');
 
       const content = document.createElement('div');
       content.classList.add('content');
