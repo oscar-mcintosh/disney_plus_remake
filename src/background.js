@@ -13,11 +13,6 @@ const displayBackgroundImage2 = (selector4, backgroundPath, bgPosition) => {
     overlayDiv.style.opacity= '1';
     document.querySelector(selector4).appendChild(overlayDiv);
 
-    // if (type === 'movie') {
-    //     document.querySelector(selector4).appendChild(overlayDiv);
-    // }else {
-    //     document.querySelector('#show-details').appendChild(overlayDiv);
-    // }
 }
 
 export { displayBackgroundImage2}

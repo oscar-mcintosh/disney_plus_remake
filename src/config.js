@@ -1,6 +1,6 @@
 
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 const global = {
     currentPage: window.location.pathname,
@@ -17,8 +17,8 @@ const global = {
         apiUrl: 'https://api.themoviedb.org/3/'
     }
 };
-const apiKey = process.env.APP_API_KEY;
-const apiUrl = process.env.APP_API_URL;
+// const apiKey = process.env.APP_API_KEY;
+// const apiUrl = process.env.APP_API_URL;
 const API_KEY = global.api.apiKey;
 const API_URL = global.api.apiUrl;
 

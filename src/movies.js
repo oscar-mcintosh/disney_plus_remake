@@ -1,5 +1,5 @@
-import { fetchCompanyAPIData, showSpinner, hideSpinner } from './config';
-import { displayBackgroundImage2 } from './background';
+import { fetchCompanyAPIData, showSpinner, hideSpinner } from './config.js';
+import { displayBackgroundImage2 } from './background.js';
 
 class MovieUI {
   constructor(config) {
@@ -7,53 +7,16 @@ class MovieUI {
     this.title = null;
     this.posterPath = null;
     this.releaseDate = null;
-    this.selector = config.selector;
-    this.searchInputSelector = config.searchInputSelector;
-    this.selector2 = config.selector2;
-    this.selector3 = config.selector3;
-    this.selector5 = config.selector5;
-    this.leftButtonSelector = config.leftButtonSelector;
-    this.rightButtonSelector = config.rightButtonSelector;
-    this.selector4 = config.selector4;
-    this.company = config.company;
-    this.slice = config.slice;
-    this.position = config.position;
-    this.bgPosition = config.bgPosition;
-  }
-    setupSearchInput() {
-    const search = document.querySelector(this.selector2);
-    const searchInput = document.querySelector(this.searchInputSelector);
-
-    
-    searchInput.addEventListener('keyup', () => {
-      let filter = searchInput.value.toUpperCase();
-      let a = search.getElementsByTagName('a');
-
-      for (let index = 0; index < a.length; index++) {
-        let b = a[index].getElementsByClassName('cont')[0];
-
-        let TextValue = b.textContent || b.innerText;
-        if (TextValue.toUpperCase().indexOf(filter) > -1) {
-          a[index].style.display = 'flex';
-          search.style.visibility = 'visible';
-          search.style.opacity = 1;
-        } else {
-          a[index].style.display = 'none';
-        }
-        if (searchInput.value == 0) {
-          search.style.visibility = 'hidden';
-          search.style.opacity = 0;
-        }
-      }
-    });
+    this.config = config;
   }
 
 
   async fetchMovieData() {
     try {
-      const { results } = await fetchCompanyAPIData(this.company);
-      const show = results.slice(this.slice)[this.position];
-      displayBackgroundImage2(this.selector4, 'movie', show.backdrop_path, this.bgPosition);
+      const { slice, position, bgPosition, selector4 } = this.config;
+      const { results } = await fetchCompanyAPIData(this.config.company);
+      const show = results.slice(slice)[position];
+      displayBackgroundImage2(selector4, 'movie', show.backdrop_path, bgPosition);
 
       const content = document.createElement('div');
       content.classList.add('content');
@@ -70,88 +33,94 @@ class MovieUI {
         </div>
       `;
 
-      const container = document.querySelector(this.selector3);
+      const container = document.querySelector(this.config.selector3);
       container.appendChild(content);
 
-      results.forEach((movie) => {
-        const div = document.createElement('a');
-        div.classList.add('card');
-        div.innerHTML = `
-          <a href="movie-details.html?id=${movie.id}">
-              <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="poster" />
-            <div class="rest_card">
-              <img src="https://image.tmdb.org/t/p/original/${movie.backdrop_path}" alt="" />
-              <div class="cont">
-                <h4>${movie.title}</h4>
-                <div class="sub">
-                  <p>Family, ${movie.release_date}</p>
-                  <h3><span>IMDB</span><i class="ri-star-fill"></i>9.6</h3>
-                </div>
-              </div>
-            </div>
-          </a>
-        `;
-        const container = document.querySelector(this.selector);
-        container.appendChild(div);
-      });
-
-      results.forEach((search) => {
-        const anchor = document.createElement('a');
-        anchor.classList.add('card');
-        anchor.innerHTML = `
-          <a href="movie-details.html?id=${search.id}" class="card">
-              <img src="https://image.tmdb.org/t/p/w500${search.poster_path}" alt="${search.title}" class="poster" />
-            <div class="cont">
-              <h3>${search.title}</h3>
-              <p>Family,${search.release_date.slice(0, 4)}, <span>IMDB</span><i class="ri-star-fill"></i>${search.vote_average}</p>
-            </div>
-          </a>
-        `;
-        const container = document.querySelector(this.selector2);
-        container.appendChild(anchor);
-      });
+      this.populateCards(results, this.config.selector);
+      this.populateSearchResults(results, this.config.selector2);
 
     } catch (error) {
-      // if (error.response && error.response.status !== 200) {
-      //     console.error('An error occurred:', error);
-      // }
-  }
+    }
 
     this.setupSearchInput();
   }
-
   setupSearchInput() {
-    const search = document.querySelector(this.selector2);
-    const searchInput = document.querySelector(this.searchInputSelector);
-
+    const { selector2, searchInputSelector } = this.config;
+    const search = document.querySelector(selector2);
+    const searchInput = document.querySelector(searchInputSelector);
+    if (searchInput) {
+      searchInput.addEventListener('keyup', () => {
+        let filter = searchInput.value.toUpperCase();
+        let a = search.getElementsByTagName('a');
     
-    searchInput.addEventListener('keyup', () => {
-      let filter = searchInput.value.toUpperCase();
-      let a = search.getElementsByTagName('a');
-
-      for (let index = 0; index < a.length; index++) {
-        let b = a[index].getElementsByClassName('cont')[0];
-
-        let TextValue = b.textContent || b.innerText;
-        if (TextValue.toUpperCase().indexOf(filter) > -1) {
-          a[index].style.display = 'flex';
-          search.style.visibility = 'visible';
-          search.style.opacity = 1;
-        } else {
-          a[index].style.display = 'none';
+        for (let index = 0; index < a.length; index++) {
+          let b = a[index].getElementsByClassName('cont')[0];
+          let textValue = b.textContent || b.innerText;
+    
+          if (textValue.toUpperCase().indexOf(filter) > -1) {
+            a[index].style.display = 'flex';
+            search.style.visibility = 'visible';
+            search.style.opacity = 1;
+          } else {
+            a[index].style.display = 'none';
+          }
+          if (searchInput.value.length === 0) {
+            search.style.visibility = 'hidden';
+            search.style.opacity = 0;
+          }
         }
-        if (searchInput.value == 0) {
-          search.style.visibility = 'hidden';
-          search.style.opacity = 0;
-        }
-      }
+      });
+    }
+    
+  }
+
+  populateCards(results, selector) {
+    results.forEach((movie) => {
+      const div = document.createElement('a');
+      div.classList.add('card');
+      div.innerHTML = `
+        <a href="movie-details.html?id=${movie.id}">
+          <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="poster" />
+          <div class="rest_card">
+            <img src="https://image.tmdb.org/t/p/original/${movie.backdrop_path}" alt="" />
+            <div class="cont">
+              <h4>${movie.title}</h4>
+              <div class="sub">
+                <p>Family, ${movie.release_date}</p>
+                <h3><span>IMDB</span><i class="ri-star-fill"></i>9.6</h3>
+              </div>
+            </div>
+          </div>
+        </a>
+      `;
+      const container = document.querySelector(selector);
+      container.appendChild(div);
+    });
+  }
+
+  populateSearchResults(results, selector2) {
+    results.forEach((search) => {
+      const anchor = document.createElement('a');
+      anchor.classList.add('card');
+      anchor.innerHTML = `
+        <a href="movie-details.html?id=${search.id}" class="card">
+          <img src="https://image.tmdb.org/t/p/w500${search.poster_path}" alt="${search.title}" class="poster" />
+          <div class="cont">
+            <h3>${search.title}</h3>
+            <p>Family,${search.release_date.slice(0, 4)}, <span>IMDB</span><i class="ri-star-fill"></i>${search.vote_average}</p>
+          </div>
+        </a>
+      `;
+      const container = document.querySelector(selector2);
+      container.appendChild(anchor);
     });
   }
 
   setupScrollButtons() {
-    const leftButtons = document.querySelectorAll(this.leftButtonSelector);
-    const rightButtons = document.querySelectorAll(this.rightButtonSelector);
-    const cardContainers = document.querySelectorAll(this.selector5);
+    const { leftButtonSelector, rightButtonSelector, selector5 } = this.config;
+    const leftButtons = document.querySelectorAll(leftButtonSelector);
+    const rightButtons = document.querySelectorAll(rightButtonSelector);
+    const cardContainers = document.querySelectorAll(selector5);
 
     leftButtons.forEach((leftButton, index) => {
       leftButton.addEventListener('click', () => {
@@ -245,4 +214,3 @@ categoryInstances.forEach((instance) => {
   instance.fetchMovieData();
   instance.setupScrollButtons();
 });
-

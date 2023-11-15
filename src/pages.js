@@ -1,4 +1,16 @@
-import { fetchCompanyAPIData, displayPagination } from './config'
+import { fetchCompanyAPIData, displayPagination } from './config.js'
+import disneyVid from './assets/videos/disney.mp4';
+import natgeoVid from './assets/videos/geographic.mp4';
+import marvelVid from './assets/videos/marvel.mp4';
+import pixarVid from './assets/videos/pixar.mp4';
+import starwarsVid from './assets/videos/star-war.mp4';
+
+
+const disneyMp4 = disneyVid;
+const marvelMp4 = marvelVid;
+const pixarMp4 = pixarVid;
+const natgeoMp4 = natgeoVid;
+const starwarsMp4 = starwarsVid;
 
 
 class PageUi {
@@ -22,7 +34,7 @@ class PageUi {
             nav.classList.add('container');
             nav.innerHTML = `
             <div class="back">
-                <a class="btn" href="../dist/index.html">Back To Home</a>
+                <a class="btn" href="/index.html">Back To Home</a>
             </div>
     
             <nav>
@@ -80,10 +92,10 @@ class PageUi {
     }
 }
 
-const disneyPage = new PageUi("#disney-shows", '#disney-cover','#main-header1', '2|3475|15935|6125', '../dist/assets/videos/disney.mp4',); 
-const marvelPage = new PageUi("#marvel-shows", '#marvel-cover',  '#main-header2', '420', '../dist/assets/videos/marvel.mp4', );
-const pixarPage = new PageUi("#pixar-shows", '#pixar-cover', '#main-header4', '3', '../dist/assets/videos/pixar.mp4',);
-const starwarsPage = new PageUi("#starwars-shows", '#starwars-cover',  '#main-header5', '1', '../dist/assets/videos/star-war.mp4', );
-const natgeoPage = new PageUi("#natgeo-shows", '#natgeo-cover',  '#main-header3', '3164', '../dist/assets/videos/geographic.mp4',);
+const disneyPage = new PageUi("#disney-shows", '#disney-cover','#main-header1', '2|3475|15935|6125', disneyMp4,); 
+const marvelPage = new PageUi("#marvel-shows", '#marvel-cover',  '#main-header2', '420', marvelMp4, );
+const pixarPage = new PageUi("#pixar-shows", '#pixar-cover', '#main-header4', '3', pixarMp4,);
+const starwarsPage = new PageUi("#starwars-shows", '#starwars-cover',  '#main-header5', '1', starwarsMp4, );
+const natgeoPage = new PageUi("#natgeo-shows", '#natgeo-cover',  '#main-header3', '3164', natgeoMp4,);
 
 export { disneyPage, marvelPage, pixarPage, starwarsPage, natgeoPage }
