@@ -552,21 +552,25 @@ function init(){
             movieReviews();
             break;
         case '/disney.html':
+        case '/disney':
             disneyPage.fetchCompanyData();
             break;
         case '/pixar.html':
+        case '/pixar':
             pixarPage.fetchCompanyData();
             break;
         case '/marvel.html':
+        case '/marvel':
             marvelPage.fetchCompanyData();
             break;
         case '/starwars.html':
+        case '/starwars':
             starwarsPage.fetchCompanyData();
             break;
         case '/natgeo.html':
+        case '/natgeo':
             natgeoPage.fetchCompanyData();
-            break;
-    
+            break;    
     }
 
     highlightActiveLink();
