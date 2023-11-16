@@ -61,54 +61,55 @@ const displayMovieDetails = async () => {
                 <iframe id="videoFrame" width="900" height="470" src="${url}" frameborder="0" allowfullscreen></iframe>
             </div>
         `
-    results.forEach(movie => {   
-        const div = document.createElement('a');
-        div.classList.add('card');
-            div.innerHTML = `
-                <a href="movie-details.html?id=${movie.id}">
-                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="poster" />
-                    <div class="rest_card">
-                    
-                        <div class="cont">
-                            <h4>Loki</h4>
-                            <div class="sub">
-                                <p>Family, ${movie.release_date}</p>
-                                <h3><span>IMDB</span><i class="ri-star-fill"></i>9.6</h3>
+        results.forEach(movie => {   
+            const div = document.createElement('a');
+            div.classList.add('card');
+                div.innerHTML = `
+                    <a href="movie-details.html?id=${movie.id}">
+                        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="poster" />
+                        <div class="rest_card">
+                        
+                            <div class="cont">
+                                <h4>Loki</h4>
+                                <div class="sub">
+                                    <p>Family, ${movie.release_date}</p>
+                                    <h3><span>IMDB</span><i class="ri-star-fill"></i>9.6</h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            `
-            ;
-    });
+                    </a>
+                `
+                ;
+        });
 
-    document.querySelector('#detail__poster').appendChild(image);
-    document.querySelector('#content').appendChild(div);
-    document.querySelector('#links').appendChild(play);
-    document.querySelector('#details-hero').appendChild(iframe);
+        document.querySelector('#detail__poster').appendChild(image);
+        document.querySelector('#content').appendChild(div);
+        document.querySelector('#links').appendChild(play);
+        document.querySelector('#details-hero').appendChild(iframe);
 
-    const playButton = document.querySelector('.playButton');
-    const closeButton = document.querySelector('.close');
+        const playButton = document.querySelector('.playButton');
+        const closeButton = document.querySelector('.close');
     
     
-    const openModal = () => {
-      const modal = document.querySelector('.modal');
+        const openModal = () => {
+        const modal = document.querySelector('.modal');
+            if (modal) {
+                modal.style.display = 'block';
+                closeButton.style.display = 'block';
+                playButton.style.display = 'none';
+            }
+        };
+
+        const closeModal = () => {
+        const modal = document.querySelector('.modal');
         if (modal) {
-            modal.style.display = 'block';
-            closeButton.style.display = 'block';
-            playButton.style.display = 'none';
+            modal.style.display = 'none';
+            closeButton.style.display = 'none';
+            playButton.style.display = 'block';
         }
-    };
-    const closeModal = () => {
-      const modal = document.querySelector('.modal');
-      if (modal) {
-          modal.style.display = 'none';
-          closeButton.style.display = 'none';
-          playButton.style.display = 'block';
-      }
-    };
-    playButton.addEventListener('click', openModal);
-    closeButton.addEventListener('click', closeModal);
+        };
+        playButton.addEventListener('click', openModal);
+        closeButton.addEventListener('click', closeModal);
     
 
 };
@@ -131,9 +132,10 @@ const similarMovies = async () => {
                 </a>
             </div>
             <div class="card__info">
-                <h3><a href="movie-details.html?id=${similarMovie.id}" title="">${similarMovie.title}</a></h3>
-                <span><small class="card__date">${similarMovie.release_date}</small></span>
+                <h3><a href="movie-details.html?id=${similarMovie.id}" class="card__title">${similarMovie.title}</a></h3>
+                <small class="text-muted">Aired: ${similarMovie.release_date}</small>
             </div>
+
         </div>
     `).join('');
 
