@@ -1,27 +1,38 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const pageNames = ['index', 'disney', 'marvel', 'pixar', 'starwars', 'natgeo', 'movie-details'];
+const Dotenv = require('dotenv-webpack');
 
-const webpack = require('webpack');
+const plugins = [
+  new MiniCssExtractPlugin(),
+  // Generate HTML files
+  ...pageNames.map(
+    (page) =>
+      new HtmlWebpackPlugin({
+        filename: `${page}.html`,
+        template: `./src/${page}.html`,
+      })
+  ),
+];
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: './src/scripts/index.js',
   output: {
-    // path: path.resolve(__dirname, 'dist/assets'),
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     assetModuleFilename: '[name][ext]',
   },
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist')
+      directory: path.resolve(__dirname, 'dist'),
     },
     port: 3000,
     open: true,
     hot: true,
     compress: true,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -31,47 +42,17 @@ module.exports = {
       },
       {
         test: /\.(png|mp4)$/i,
-        type: 'asset/resource'
+        type: 'asset/resource',
       },
     ],
   },
-  plugins: [
-    new MiniCssExtractPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: './src/index.html',
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'disney.html',
-      template: './src/disney.html',
-      chunks: ['main'],
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'marvel.html',
-      template: './src/marvel.html',
-      chunks: ['main'],
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'pixar.html',
-      template: './src/pixar.html',
-      chunks: ['main'],
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'starwars.html',
-      template: './src/starwars.html',
-      chunks: ['main'],
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'natgeo.html',
-      template: './src/natgeo.html',
-      chunks: ['main'],
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'movie-details.html',
-      template: './src/movie-details.html'
-    })
-
-  ],
+  plugins: [...plugins,
+    new Dotenv()
+  ], 
+  resolve: {
+    fallback: {
+      "path": require.resolve("path-browserify")
+    }
+  },
   devtool: 'eval-source-map',
-  // watch: true,
-}
+};

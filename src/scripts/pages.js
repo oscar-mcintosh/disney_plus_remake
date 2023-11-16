@@ -1,9 +1,9 @@
 import { fetchCompanyAPIData, displayPagination } from './config.js'
-import disneyVid from './assets/videos/disney.mp4';
-import natgeoVid from './assets/videos/geographic.mp4';
-import marvelVid from './assets/videos/marvel.mp4';
-import pixarVid from './assets/videos/pixar.mp4';
-import starwarsVid from './assets/videos/star-war.mp4';
+import disneyVid from '../assets/videos/disney.mp4';
+import natgeoVid from '../assets/videos/geographic.mp4';
+import marvelVid from '../assets/videos/marvel.mp4';
+import pixarVid from '../assets/videos/pixar.mp4';
+import starwarsVid from '../assets/videos/star-war.mp4';
 
 
 const disneyMp4 = disneyVid;
@@ -37,20 +37,6 @@ class PageUi {
                 <a class="btn" href="/index.html">Back To Home</a>
             </div>
     
-            <nav>
-                <ul>
-                <li>
-                    <a class="nav-link" href="#crew">Cast</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="#review">Reviews</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="#similar">Similar Movies</a>
-                </li>
-    
-                </ul>
-            </nav>  
             `;
             const header = document.querySelector(this.selector3);
 

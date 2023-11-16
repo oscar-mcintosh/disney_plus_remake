@@ -16,7 +16,7 @@ class MovieUI {
       const { slice, position, bgPosition, selector4 } = this.config;
       const { results } = await fetchCompanyAPIData(this.config.company);
       const show = results.slice(slice)[position];
-      displayBackgroundImage2(selector4, 'movie', show.backdrop_path, bgPosition);
+      displayBackgroundImage2(selector4, show.backdrop_path, bgPosition);
 
       const content = document.createElement('div');
       content.classList.add('content');
@@ -149,7 +149,7 @@ const categories = [
     company: '2|3475|15935|6125',
     slice: '0, 1',
     position: '0',
-    bgPosition: 'center',
+    bgPosition: '',
   },
   {
     selector: '#cards2',
@@ -163,7 +163,7 @@ const categories = [
     company: '420',
     slice: '0, 1',
     position: '2',
-    bgPosition: 'center',
+    bgPosition: '',
   },
   {
     selector: '#cards3',
@@ -177,7 +177,7 @@ const categories = [
     company: '3',
     slice: '0, 1',
     position: '3',
-    bgPosition: 'center',
+    bgPosition: '',
   },
   {
     selector: '#cards4',
@@ -191,7 +191,7 @@ const categories = [
     company: '1',
     slice: '0, 1',
     position: '2',
-    bgPosition: 'center',
+    bgPosition: '',
   },
   {
     selector: '#cards5',
@@ -205,7 +205,7 @@ const categories = [
     company: '3164',
     slice: '0, 1',
     position: '1',
-    bgPosition: 'center',
+    bgPosition: '',
   },
 ];
 

@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "firebase": "^10.5.2",
-    "html-webpack-plugin": "^5.5.3"
+    "html-webpack-plugin": "^5.5.3",
+    "path-browserify": "^1.0.1"
   }
 }
