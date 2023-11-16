@@ -15,8 +15,7 @@ const displayMovieDetails = async () => {
     const releaseDate = new Date(movie.release_date);
     const formattedDate = `${(releaseDate.getMonth() + 1).toString().padStart(2, '0')}-${releaseDate.getDate().toString().padStart(2, '0')}-${releaseDate.getFullYear()}`;
 
-    displayBackgroundImage2('#details-hero',  movie.backdrop_path, 'left calc((50vw - 200px) - 400px) top' );
-    similarAPIData(movieId);
+    displayBackgroundImage2('#details-hero',  movie.backdrop_path, 'left calc((50vw - 300px) - 400px) top' );
     const trailor = await trailorAPIData(movieId);
 
    
@@ -119,48 +118,55 @@ const similarMovies = async () => {
     const movieId = window.location.search.split('=')[1];
     const movie = await fetchAPIData(`movie/${movieId}`);
     const company = movie.production_companies[0].id;
-    const releaseDate = new Date(movie.release_date);
-    const formattedDate = `${(releaseDate.getMonth() + 1).toString().padStart(2, '0')}-${releaseDate.getDate().toString().padStart(2, '0')}-${releaseDate.getFullYear()}`;
     const { results } = await fetchCompanyAPIData(company);
 
-    results.forEach(similarMovie => {
-        if (similarMovie.id !== parseInt(movieId)) {
-            const div = document.createElement('div');
-            div.classList.add('card');
-            div.innerHTML = `
-                <div class="card__thumbnail">
-                    <a href="movie-details.html?id=${similarMovie.id}" title="">
-                            <img src="https://image.tmdb.org/t/p/w500${similarMovie.poster_path}" alt="${similarMovie.title}" class="card__img" />
-                        <div class="card__time">${similarMovie.vote_average.toFixed(1)} / <span> 10</span></div>
-                    </a>
-                </div>
-                <div class="card__info">
-                    <h3><a href="movie-details.html?id=${similarMovie.id}" title="">${similarMovie.title}</a></h3>
-                    <span><small class="card__date">${similarMovie.release_date}</small></span>
-                </div>
-            `;
-            document.querySelector('#similar-movies').appendChild(div);
-        }
-    });
+    const filteredResults = results.filter(similarMovie => similarMovie.id !== parseInt(movieId));
+
+    const similarMoviesHTML = filteredResults.map(similarMovie => `
+        <div class="card">
+            <div class="card__thumbnail">
+                <a href="movie-details.html?id=${similarMovie.id}" title="">
+                    <img src="https://image.tmdb.org/t/p/w500${similarMovie.poster_path}" alt="${similarMovie.title}" class="card__img" />
+                    <div class="card__time">${similarMovie.vote_average.toFixed(1)} / <span> 10</span></div>
+                </a>
+            </div>
+            <div class="card__info">
+                <h3><a href="movie-details.html?id=${similarMovie.id}" title="">${similarMovie.title}</a></h3>
+                <span><small class="card__date">${similarMovie.release_date}</small></span>
+            </div>
+        </div>
+    `).join('');
+
+    document.querySelector('#similar-movies').innerHTML = similarMoviesHTML;
 };
+
 
 const movieCast = async () => {
     const movieId = window.location.search.split('=')[1];
     const { cast } = await castAPIData(movieId);
-    const filteredCast = cast.filter(member => member.known_for_department.includes("Acting")).slice(0, 4);
-    filteredCast.forEach(cast => {
+    
+    const filteredCast = cast
+        .filter(member => member.known_for_department.includes("Acting"))
+        .slice(0, 4)
+        .map(actor => {
             const article = document.createElement('article');
             article.classList.add('card__article');
+            
+            const profileImgSrc = actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : '';
+            
             article.innerHTML = `
-                <img src="https://image.tmdb.org/t/p/w500${cast.profile_path}" alt="${cast.name}" class="card__img" />
+                <img src="${profileImgSrc}" alt="${actor.name}" class="card__img" />
                 <div class="card__data">
-                <h3 class="card__title">${cast.name}</a></h3>
-
-                <span><small class="card__button">${cast.character}</small></span>
-
+                    <h3 class="card__title">${actor.name}</h3>
+                    ${actor.character ? `<span><small class="card__button">${actor.character}</small></span>` : ''}
                 </div>
             `;
-            document.querySelector('#cast').appendChild(article);
+            return article;
+        });
+
+    const castContainer = document.querySelector('#cast');
+    filteredCast.forEach(article => {
+        castContainer.appendChild(article);
     });
 };
 
@@ -169,27 +175,31 @@ const movieReviews = async () => {
     const { results } = await reviewsAPIData(movieId);
     const reviews = results.slice(0, 3);
 
-    reviews.forEach(review => {
-            const article = document.createElement('article');
-            article.classList.add('review__card');
-            article.innerHTML = `
+    const reviewElements = reviews.map(review => {
+        const article = document.createElement('article');
+        article.classList.add('review__card');
+
+        const authorAvatar = `https://image.tmdb.org/t/p/w500${review.author_details.avatar_path || ''}`;
+
+        article.innerHTML = `
             <div class="review__img">
-                <img src="https://image.tmdb.org/t/p/w500${review.author_details.avatar_path}" alt="image" >
-                </div>
-                <h2 class="review__title">${review.author}</h2>
-                <p class="review__description review">${review.content}</p>
-                <div class="review__stars">
+                <img src="${authorAvatar}" alt="Author Avatar">
+            </div>
+            <h2 class="review__title">${review.author}</h2>
+            <p class="review__description review">${review.content}</p>
+            <div class="review__stars">
                 <i class="ri-star-fill"></i>
+            </div>
+        `;
 
-                </div>
+        return article;
+    });
 
-                </div>
-            `;
-            document.querySelector('#reviews').appendChild(article);
+    const reviewsContainer = document.querySelector('#reviews');
+    reviewElements.forEach(review => {
+        reviewsContainer.appendChild(review);
     });
 };
-
-
 
 export {displayMovieDetails, similarMovies, movieCast, movieReviews, }
 
