@@ -1,5 +1,5 @@
 
-require('dotenv').config();
+// require('dotenv').config();
 const global = {
     currentPage: window.location.pathname,
     search: {
@@ -15,10 +15,10 @@ const global = {
         apiUrl: 'https://api.themoviedb.org/3/'
     }
 };
-const API_KEY = process.env.APP_API_KEY;
-const API_URL = process.env.APP_API_URL;
-// const API_KEY = global.api.apiKey;
-// const API_URL = global.api.apiUrl;
+// const API_KEY = process.env.APP_API_KEY;
+// const API_URL = process.env.APP_API_URL;
+const API_KEY = global.api.apiKey;
+const API_URL = global.api.apiUrl;
 
 const fetchAPIData = async (endpoint) => {
     showSpinner();
