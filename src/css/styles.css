@@ -459,7 +459,7 @@ ul {
 }
 
 .header section .cards .card:hover{
-  /* min-width: 300px; */
+  min-width: 300px;
   overflow: hidden;
 }
 
