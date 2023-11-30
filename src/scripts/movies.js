@@ -148,7 +148,7 @@ const categories = [
     selector4: '.header1',
     company: '2|3475|15935|6125',
     slice: '0, 1',
-    position: '0',
+    position: '1',
     bgPosition: '',
   },
   {
@@ -162,7 +162,7 @@ const categories = [
     selector4: '.header2',
     company: '420',
     slice: '0, 1',
-    position: '2',
+    position: '5',
     bgPosition: '',
   },
   {
